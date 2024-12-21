@@ -5,9 +5,11 @@ import asyncio
 import aiohttp
 import pandas as pd
 import json
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
-
 
 
 def date_to_season(date):
@@ -83,6 +85,19 @@ def main():
     
     if not api_key is None:
         weather = asyncio.run(get_weather_async(city, api_key))
+
+        if "main" not in weather:
+            st.error(weather["message"])
+            return
+        
+
+        curr_temp = weather["main"]["temp"]
+        st.success(f"Current temperature in {city}: **{curr_temp} °C**.")
+        
+        fig, ax = plt.subplots()
+        sns.boxplot(df_stats.loc[df_stats.city == city], y="temperature", x="season", ax=ax)
+        st.pyplot(fig)
+
 
 
 
