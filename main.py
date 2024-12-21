@@ -12,4 +12,10 @@ if __name__ == "__main__":
 
     )
 
+    st.write(
+        """
+        ВСЕМ ПРИВЕТ!!!!!
+        """
+    )
+
     st.image(image)
