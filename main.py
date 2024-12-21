@@ -95,8 +95,8 @@ def main():
         curr_temp = weather["main"]["temp"]
         st.success(f"Current temperature in {city}: **{curr_temp} °C**.")
         
-        normal_mean, normal_std = df_orig.loc[
-                (df_orig.city == city) & (df_orig.season == "winter"), ["mean", "std"]
+        normal_mean, normal_std = df_stats.loc[
+                (df_stats.city == city) & (df_stats.season == "winter"), ["mean", "std"]
             ].values[0]
     
         lower_bound = normal_mean - 2 * normal_std
