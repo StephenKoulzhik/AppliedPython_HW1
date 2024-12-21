@@ -7,7 +7,9 @@ import pandas as pd
 import json
 import matplotlib.pyplot as plt
 import seaborn as sns
-import serpapi
+from serpapi import GoogleSearch
+from dotenv import load_dotenv
+ 
 
 
 URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
@@ -68,6 +70,11 @@ async def get_weather_async(city, api_key=None):
         async with session.get(url) as response:
                 content = await response.text()
                 return json.loads(content)
+        
+
+
+def find_flights(departure_airport, arrival_airport):
+    pass
 
 
 def main():
@@ -131,6 +138,14 @@ def main():
         st.pyplot(fig)
         
         st.write("А если вам кажется, что там, где вы сейчас находитесь очень холодно и вы хотите в более теплые края, то у меня есть для вас решение!!")
+
+        departure_airport = st.text_input("Аэропорт вылета", None)
+        arrival_airport = st.text_input("Аэропорт прибытия", None)
+
+        if (not departure_airport is None) and (not arrival_airport is None):
+            link = find_flights(departure_airport, arrival_airport)
+
+
 
 
 
