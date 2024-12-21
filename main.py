@@ -21,5 +21,5 @@ if __name__ == "__main__":
         """
     )
 
-    st.write("Today's date: ", datetime.today())
+    st.write("Today's date: ", datetime.date.today())
     st.write("Current season is: ____")
