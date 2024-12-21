@@ -1,7 +1,13 @@
 import streamlit as st
 from PIL import Image
 import datetime
+import asyncio
+import aiohttp
 import pandas as pd
+import json
+
+URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
+
 
 
 def date_to_season(date):
@@ -49,6 +55,18 @@ def preprocessing(path):
     return df, df_res
 
 
+async def get_weather_async(city, api_key=None):
+    url = URL_TEMPLATE.format(
+        city=city,
+        API_KEY=api_key
+    )
+    
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+                content = await response.text()
+                return json.loads(content)
+
+
 def main():
     st.write("Today's date: ", datetime.date.today())
     st.write(f"Current season: **{date_to_season(datetime.date.today())}**")
@@ -61,8 +79,11 @@ def main():
     df_orig, df_stats = preprocessing(uploaded_file)
 
     city = st.selectbox("Select the city: ", df_orig["city"].unique())    
-    api_key = st.text_input("Enter the api key for OpenWeather", "")
-
+    api_key = st.text_input("Enter the api key for OpenWeather", None)
+    
+    if not api_key is None:
+        weather = asyncio.run(get_weather_async(city, api_key))
+            
 
 
     
