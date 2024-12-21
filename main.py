@@ -71,7 +71,8 @@ async def get_weather_async(city, api_key=None):
 
 def main():
     st.write("Today's date: ", datetime.date.today())
-    st.write(f"Current season: **{date_to_season(datetime.date.today())}**")
+    current_season = date_to_season(datetime.date.today())
+    st.write(f"Current season: **{current_season}**")
 
     uploaded_file = st.file_uploader("Choose CSV-file", type=["csv"])
     if uploaded_file is None:
@@ -94,6 +95,22 @@ def main():
         curr_temp = weather["main"]["temp"]
         st.success(f"Current temperature in {city}: **{curr_temp} °C**.")
         
+        normal_mean, normal_std = df_orig.loc[
+                (df_orig.city == city) & (df_orig.season == "winter"), ["mean", "std"]
+            ].values[0]
+    
+        lower_bound = normal_mean - 2 * normal_std
+        upper_bound = normal_mean + 2 * normal_std
+
+        is_anomaly = True if curr_temp > upper_bound or curr_temp < lower_bound else False
+        
+        if is_anomaly:
+            st.error(f"Current temperature in {city}: **{curr_temp} °C**. IT IS AN ANOMALY!!!")
+        else:
+            st.success(f"Current temperature in {city}: **{curr_temp} °C**. Everything is okay)")
+        
+        st.error("TEST")
+
         fig, ax = plt.subplots(figsize=(10, 7))
         sns.boxplot(df_stats.loc[df_stats.city == city], y="temperature", x="season", ax=ax)
         st.pyplot(fig)
