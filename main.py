@@ -107,22 +107,21 @@ if __name__ == "__main__":
     image = Image.open('assets/CAO.jpg')
 
     st.set_page_config(
-        layout="wide",
         initial_sidebar_state="auto",
         page_title="OpenWeather Demo",
         page_icon=image,
     )
 
-    # col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
 
-    # with col1:
-    #     st.write(' ')
+    with col1:
+        st.write(' ')
 
-    # with col2:
-    #     st.image(image)
+    with col2:
+        st.image(image)
 
-    # with col3:
-    #     st.write(' ')
+    with col3:
+        st.write(' ')
 
 
     st.write(
