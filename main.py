@@ -7,6 +7,7 @@ import pandas as pd
 import json
 import matplotlib.pyplot as plt
 import seaborn as sns
+import serpapi
 
 
 URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
@@ -70,7 +71,7 @@ async def get_weather_async(city, api_key=None):
 
 
 def main():
-    st.write("Today's date: ", datetime.date.today())
+    st.write("Current date: ", datetime.date.today())
     current_season = date_to_season(datetime.date.today())
     st.write(f"Current season: **{current_season}**")
 
@@ -128,6 +129,9 @@ def main():
 
         ax.legend()
         st.pyplot(fig)
+
+
+
 
 
 
