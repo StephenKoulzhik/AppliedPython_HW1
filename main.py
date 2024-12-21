@@ -91,9 +91,7 @@ def main():
             st.error(weather["message"])
             return
         
-
         curr_temp = weather["main"]["temp"]
-        st.success(f"Current temperature in {city}: **{curr_temp} °C**.")
         
         normal_mean, normal_std = df_stats.loc[
                 (df_stats.city == city) & (df_stats.season == "winter"), ["mean", "std"]
@@ -107,11 +105,11 @@ def main():
         if is_anomaly:
             st.error(f"Current temperature in {city}: **{curr_temp} °C**. IT IS AN ANOMALY!!!")
         else:
-            st.success(f"Current temperature in {city}: **{curr_temp} °C**. Everything is okay)")
+            st.success(f"Current temperature in {city}: **{curr_temp} °C**. Everything is fine.")
         
-        st.error("TEST")
 
         fig, ax = plt.subplots(figsize=(10, 7))
+        plt.title(f"Temperature distribution in {city}")
         sns.boxplot(df_stats.loc[df_stats.city == city], y="temperature", x="season", ax=ax)
         st.pyplot(fig)
 
