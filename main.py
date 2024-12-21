@@ -43,4 +43,4 @@ if __name__ == "__main__":
     )
 
     st.write("Today's date: ", datetime.date.today())
-    st.write(f"Current season: *{date_to_season(datetime.date.today())}*")
+    st.write(f"Current season: **{date_to_season(datetime.date.today())}**")
