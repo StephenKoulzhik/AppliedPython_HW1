@@ -8,7 +8,6 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 from serpapi import GoogleSearch
-from dotenv import load_dotenv
  
 
 

@@ -2,6 +2,4 @@ aiohttp==3.10.10
 matplotlib==3.9.0
 matplotlib-inline==0.1.7
 seaborn==0.13.2
-python-dotenv==1.0.1
-numpy==2.2.0
 serpapi==0.1.5
