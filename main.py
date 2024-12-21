@@ -6,9 +6,7 @@ import aiohttp
 import pandas as pd
 import json
 import matplotlib.pyplot as plt
-import seaborn as sns
-from serpapi import GoogleSearch
- 
+import seaborn as sns 
 
 
 URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
