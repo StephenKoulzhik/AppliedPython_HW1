@@ -94,8 +94,7 @@ def main():
         curr_temp = weather["main"]["temp"]
         st.success(f"Current temperature in {city}: **{curr_temp} °C**.")
         
-        fig, ax = plt.subplots()
-        st.figure(figsize={10, 7})
+        fig, ax = plt.subplots(figsize=(10, 7))
         sns.boxplot(df_stats.loc[df_stats.city == city], y="temperature", x="season", ax=ax)
         st.pyplot(fig)
 
