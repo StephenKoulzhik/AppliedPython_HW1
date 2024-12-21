@@ -83,7 +83,7 @@ def main():
     
     if not api_key is None:
         weather = asyncio.run(get_weather_async(city, api_key))
-            
+
 
 
     
