@@ -114,11 +114,28 @@ def main():
         st.pyplot(fig)
 
 
+        fig, ax = plt.subplots(figsize=(15, 8))
+        plt.title(f"Historical temperature in {city}")
+
+        df_slice = df_stats.loc[df_stats.city == city]
+        df_slice.loc[:, "timestamp"] = pd.to_datetime(df_slice["timestamp"])
+        df_anomaly = df_slice.loc[df_slice.anomaly == 1]
+
+        ax.plot(df_slice["timestamp"], df_slice["temperature"], label="Temperature")
+        ax.plot(df_slice["timestamp"], df_slice["lower_bound"], label="Normal temperature lower bound", linestyle='dashed')
+        ax.plot(df_slice["timestamp"], df_slice["upper_bound"], label="Normal temperature upper bound", linestyle='dashed')
+        ax.scatter(df_anomaly["timestamp"], df_anomaly["temperature"], color="red", marker="*", label="anomaly")
+
+        ax.legend()
+        st.pyplot(fig)
+
 
 
     
 
 if __name__ == "__main__":
+    
+    # Смешная картинка, можно бонус поинт пж
     image = Image.open('assets/CAO.jpg')
 
     st.set_page_config(
