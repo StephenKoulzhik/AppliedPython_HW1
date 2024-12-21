@@ -119,7 +119,7 @@ def main():
 
         df_slice = df_stats.loc[df_stats.city == city]
         df_slice.loc[:, "timestamp"] = pd.to_datetime(df_slice["timestamp"])
-        df_anomaly = df_slice.loc[df_slice.anomaly == 1]
+        df_anomaly = df_slice.loc[df_slice["is_anomaly"] == 1]
 
         ax.plot(df_slice["timestamp"], df_slice["temperature"], label="Temperature")
         ax.plot(df_slice["timestamp"], df_slice["lower_bound"], label="Normal temperature lower bound", linestyle='dashed')
