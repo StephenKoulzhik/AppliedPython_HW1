@@ -2,7 +2,6 @@ import streamlit as st
 from PIL import Image
 import datetime
 import pandas as pd
-from joblib import Parallel, delayed
 
 
 def date_to_season(date):
@@ -33,12 +32,11 @@ def analyze_city(city_data):
     return city_data
 
 
-def analyze_data_parallel(df, n_jobs=-1):
-    cities = df["city"].unique()
-    city_data_splits = [df[df["city"] == city] for city in cities]
-    results = Parallel(n_jobs=n_jobs)(
-        delayed(analyze_city)(city_data) for city_data in city_data_splits
-    )
+def analyze_data_full(df):
+    results = []
+    for city in df["city"].unique():
+        city_data = df[df["city"] == city]
+        results.append(analyze_city(city_data))
     return pd.concat(results)
 
 
@@ -46,7 +44,7 @@ def preprocessing(path):
     df = pd.read_csv(path)
     df = df.sort_values(by=["city", "timestamp"]).reset_index(drop=True)
     
-    df_res = analyze_data_parallel(df)
+    df_res = analyze_data_full(df)
 
     return df, df_res
 
@@ -65,7 +63,7 @@ def main():
     city = st.selectbox("Select the city: ", df_orig["city"].unique())    
     api_key = st.text_input("Enter the api key for OpenWeather", "")
 
-    
+
 
     
 
