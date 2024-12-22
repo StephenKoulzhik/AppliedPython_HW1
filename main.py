@@ -72,6 +72,8 @@ async def get_weather_async(city, api_key=None):
 
 
 def find_flights(departure_airport, arrival_airport):
+    # Да, я знаю что слил API ключ
+    # Но его настолько сложно получить, что мне было проще это реализовать так...
     API_KEY = "5dd42b727c9ab0013a1df63bf838e3847dcbf9cbdd63e622df3d78d6cc84aab5"
     today = datetime.date.today()
     params = {
@@ -159,6 +161,7 @@ def main():
         if (not departure_airport is None) and (not arrival_airport is None):
             link = find_flights(departure_airport, arrival_airport)
             st.markdown(f"[Ссылочка]({link}) на перелеты")
+            st.write("И не удивляйтесь, что билеты в одну сторону. Мало кому захочется возвращаться в холода...")
         else:
             st.error("Введите правильные названия аэропортов!!")
 
