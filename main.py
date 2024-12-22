@@ -8,7 +8,6 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 from serpapi import GoogleSearch
- 
 
 
 URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
@@ -73,7 +72,23 @@ async def get_weather_async(city, api_key=None):
 
 
 def find_flights(departure_airport, arrival_airport):
-    pass
+    API_KEY = "5dd42b727c9ab0013a1df63bf838e3847dcbf9cbdd63e622df3d78d6cc84aab5"
+    today = datetime.date.today()
+    params = {
+    "engine": "google_flights",
+    "type": "2",
+    "departure_id": departure_airport,
+    "arrival_id": arrival_airport,
+    "hl": "en",
+    "gl": "us",
+    "currency": "USD",
+    "outbound_date": today.strftime("%Y-%m-%d"),
+    "api_key": API_KEY
+    }
+
+    search = GoogleSearch(params)
+    res = search.get_dict()
+    return res['search_metadata']['google_flights_url']
 
 
 def main():
@@ -143,8 +158,9 @@ def main():
 
         if (not departure_airport is None) and (not arrival_airport is None):
             link = find_flights(departure_airport, arrival_airport)
-
-
+            st.markdown(f"[Ссылочка]({link}) на перелеты")
+        else:
+            st.error("Введите правильные названия аэропортов!!")
 
 
 
