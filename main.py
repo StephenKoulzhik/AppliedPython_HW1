@@ -155,8 +155,8 @@ def main():
         
     st.write("А если вам кажется, что там, где вы сейчас находитесь очень холодно и вы хотите в более теплые края, то у меня есть для вас решение!!")
 
-    departure_airport = st.text_input("Аэропорт вылета", None)
-    arrival_airport = st.text_input("Аэропорт прибытия", None)
+    departure_airport = st.text_input("Аэропорт вылета (например, DME)", None)
+    arrival_airport = st.text_input("Аэропорт прибытия (например, DXB)", None)
 
     if (not departure_airport is None) and (not arrival_airport is None):
         link = find_flights(departure_airport, arrival_airport)
@@ -180,8 +180,6 @@ if __name__ == "__main__":
         page_title="OpenWeather Demo",
         page_icon=image,
     )
-
-    col1, col2, col3 = st.columns(3)
 
     st.image(image)
 
